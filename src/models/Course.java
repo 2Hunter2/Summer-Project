@@ -1,6 +1,6 @@
-package src;
+package models;
 
-public class Class {
+public class Course {
     public String className;
     public Double classTime;
     public Schedule schedule;

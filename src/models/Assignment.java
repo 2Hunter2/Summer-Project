@@ -1,4 +1,4 @@
-package src;
+package models;
 
 public class Assignment {
     public String aTitle, aDescription, dueDay, materials, workDay, eGrade, aGrade, completion;
