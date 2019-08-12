@@ -1,4 +1,10 @@
 package models;
+import javax.persistence.*;
 
+@Entity
 public class AssignmentType{
-public String color, description, assignmentId;}
+    @Id
+    @GeneratedValue (strategy = GenerationType.AUTO)
+    public Long assignmentId;
+    public String color, description;
+}

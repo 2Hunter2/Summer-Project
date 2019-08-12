@@ -2,21 +2,41 @@ package repository;
 
 import models.AssignmentType;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+
 public class assignmentTypeRepository {
-    public static AssignmentType getAssignment (String assignmentId) {
-        AssignmentType a = new AssignmentType();
-        a.assignmentId = assignmentId;
-        a.color = "color";
-        a.description = "description";
-        return a;
+    private static EntityManager entityManager;
+    public void assignmentTypeRepository (){
+        entityManager = Persistence.createEntityManagerFactory("assignmentType").createEntityManager();
+    }
+    public static AssignmentType getAssignment (Long assignmentId) {
+    return entityManager.find(AssignmentType.class, assignmentId);
     }
 
-    public static void addAssignmentType (AssignmentType assignmenttype) {
+    public static void addAssignmentType (AssignmentType assignmentType) {
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        entityManager.persist(assignmentType);
+        transaction.commit();
     }
 
-    public static void deleteAssignmentType (String assignmentId) {
+    public static void deleteAssignmentType (Long assignmentId) {
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        AssignmentType at = entityManager.find(AssignmentType.class, assignmentId);
+        entityManager.remove(at);
+        transaction.commit();
     }
 
-    public static void updateAssignmentType (AssignmentType assignmenttype) {
+    public static void updateAssignmentType (AssignmentType assignmentType) {
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        AssignmentType at = entityManager.find(AssignmentType.class, assignmentType.assignmentId);
+        at.color = assignmentType.color;
+        at.description = assignmentType.description;
+        entityManager.merge (at);
+        transaction.commit();
     }
 }

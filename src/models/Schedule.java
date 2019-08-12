@@ -1,5 +1,10 @@
 package models;
+import javax.persistence.*;
 
+@Entity
 public class Schedule {
-public String classDay;
+    @Id
+    @GeneratedValue (strategy = GenerationType.AUTO)
+    public Long scheduleId;
+    public String classDay;
 }
